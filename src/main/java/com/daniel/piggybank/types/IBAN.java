@@ -1,16 +1,18 @@
 package com.daniel.piggybank.types;
 
 import com.daniel.piggybank.exceptions.InvalidFormatException;
-import com.daniel.piggybank.exceptions.NullException;
+import com.daniel.piggybank.exceptions.IbanIsNullException;
+import jakarta.persistence.Column;
 
 import java.util.Objects;
 
 public class IBAN {
     private static final String IBAN_FORMAT = "^[A-Z0-9]{22,34}$"; // constant
 
+    @Column(name = "iban")
     private final String value;
 
-    public IBAN(String value) throws InvalidFormatException, NullException {
+    public IBAN(String value) {
         this.value = validate(value);
     }
 
@@ -18,8 +20,8 @@ public class IBAN {
         return value;
     }
 
-    private static String validate(String iban) throws InvalidFormatException, NullException {
-        if(null == iban) throw new NullException("IBAN was null.");
+    private static String validate(String iban){
+        if(iban == null) throw new IbanIsNullException("IBAN was null.");
 
         if(!iban.matches(IBAN_FORMAT)) throw new InvalidFormatException("Wrong IBAN format.");
 

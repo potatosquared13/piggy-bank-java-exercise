@@ -1,9 +1,8 @@
 package com.daniel.piggybank.types;
 
 import com.daniel.piggybank.exceptions.InvalidFormatException;
-import com.daniel.piggybank.exceptions.NullException;
+import com.daniel.piggybank.exceptions.IbanIsNullException;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,6 +25,6 @@ class IBANTest {
 
     @Test
     void doesNotAllowNullIban() {
-        assertThrows(NullException.class, () -> new IBAN(null));
+        assertThrows(IbanIsNullException.class, () -> new IBAN(null));
     }
 }

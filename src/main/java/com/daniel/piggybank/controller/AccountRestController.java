@@ -16,4 +16,3 @@ public class AccountRestController {
         return new AccountDTO(randomUUID(), request.iban, request.balance);
     }
 }
-
