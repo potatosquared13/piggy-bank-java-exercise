@@ -23,13 +23,29 @@ public class Account {
 
     // Used only by JPA
     Account() {
-            
+        id = null;
+        iban = null;
+        balance = null;
     }
 
-    public Account(UUID id, IBAN iban, BigDecimal balance) {
-        this.id = id;
+    public Account(IBAN iban, BigDecimal balance) {
+        this.id = UUID.randomUUID();
+        // TODO: null check on iban
         this.iban = iban;
+        // TODO: exception check if balance is < 0
         this.balance = balance;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public IBAN getIban() {
+        return iban;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
     }
 
     @Override
