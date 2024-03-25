@@ -20,7 +20,6 @@ public class AccountRestController {
 
     @PostMapping
     public AccountDTO createAccount(@RequestBody CreateAccountRequest request) {
-        // TODO: Create account
         final var account = accountService.createAccount(request.iban, request.balance);
         return new AccountDTO(account.getId(), account.getIban(), account.getBalance());
     }
