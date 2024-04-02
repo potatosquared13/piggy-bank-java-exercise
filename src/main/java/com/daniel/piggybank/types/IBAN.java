@@ -12,6 +12,12 @@ public class IBAN {
     @Column(name = "iban")
     private final String value;
 
+
+    // used only by JPA
+    public IBAN() {
+        this.value = null;
+    }
+
     public IBAN(String value) {
         this.value = validate(value);
     }
