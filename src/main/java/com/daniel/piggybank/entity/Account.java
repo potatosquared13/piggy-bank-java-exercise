@@ -1,5 +1,6 @@
 package com.daniel.piggybank.entity;
 
+import com.daniel.piggybank.exceptions.InsufficientBalanceException;
 import com.daniel.piggybank.types.IBAN;
 import jakarta.persistence.*;
 
@@ -19,7 +20,7 @@ public class Account {
     private final IBAN iban;
 
     @Column(name = "balance")
-    private final BigDecimal balance;
+    private BigDecimal balance;
 
     // Used only by JPA
     Account() {
@@ -59,5 +60,19 @@ public class Account {
     @Override
     public int hashCode() {
         return Objects.hash(id, iban, balance);
+    }
+
+    public void debit(BigDecimal amount) {
+        final var newBalance = this.balance.subtract(amount);
+        final var newBalanceIsLessThanZero = newBalance.compareTo(BigDecimal.ZERO) < 0;
+        if(newBalanceIsLessThanZero) {
+            throw new InsufficientBalanceException();
+        }
+
+        this.balance = newBalance;
+    }
+
+    public void credit(BigDecimal amount) {
+        this.balance = this.balance.add(amount);
     }
 }

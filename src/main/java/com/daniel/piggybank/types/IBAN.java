@@ -26,6 +26,10 @@ public class IBAN {
         return value;
     }
 
+    public static IBAN ibanFrom(String value) {
+        return new IBAN(value);
+    }
+
     private static String validate(String iban){
         if(iban == null) throw new IbanIsNullException("IBAN was null.");
 
