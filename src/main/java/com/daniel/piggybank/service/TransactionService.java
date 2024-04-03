@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Service
 public class TransactionService {
-
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
 
@@ -37,5 +37,9 @@ public class TransactionService {
 
         final var transaction = new Transaction(amount, fromAccount, toAccount);
         return transactionRepository.save(transaction);
+    }
+
+    public Transaction getById(UUID transactionId) {
+        return transactionRepository.getReferenceById(transactionId);
     }
 }

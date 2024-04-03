@@ -19,11 +19,11 @@ public class Transaction {
     private final BigDecimal amount;
 
     @ManyToOne
-    @Column(name = "from_account")
+    @JoinColumn(name = "from_account")
     private final Account fromAccount;
 
     @ManyToOne
-    @Column(name = "to_account")
+    @JoinColumn(name = "to_account")
     private final Account toAccount;
 
     // used only by JPA

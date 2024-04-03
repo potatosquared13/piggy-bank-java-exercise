@@ -1,5 +1,8 @@
 package com.daniel.piggybank.controller;
 
+import com.daniel.piggybank.dto.AccountDTO;
+import com.daniel.piggybank.dto.TransactionDTO;
+import com.daniel.piggybank.entity.Transaction;
 import com.daniel.piggybank.request.CreateTransactionRequest;
 import com.daniel.piggybank.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +22,30 @@ public class TransactionRestController {
     }
 
     @PostMapping
-    public void createTransaction(@RequestBody CreateTransactionRequest request) {
-        transactionService.create(request.amount, request.fromAccountIban, request.toAccountIban);
+    public TransactionDTO createTransaction(@RequestBody CreateTransactionRequest request) {
+        final var transaction = transactionService.create(request.amount, request.fromAccountIban, request.toAccountIban);
+
+        return toResponse(transaction);
     }
 
     @GetMapping
     @RequestMapping("/api/transactions/{transactionId}")
-    public void getTransaction(@PathVariable UUID transactionId) {
-        // TODO: Finish later
+    public TransactionDTO getTransaction(@PathVariable UUID transactionId) {
+        final var transaction = transactionService.getById(transactionId);
+
+        return toResponse(transaction);
     }
+
+    private static TransactionDTO toResponse(Transaction transaction) {
+        final var fromAccount = transaction.getFromAccount();
+        final var toAccount = transaction.getToAccount();
+
+        final var fromAccountDTO = new AccountDTO(fromAccount.getId(), fromAccount.getIban(), fromAccount.getBalance());
+        final var toAccountDTO = new AccountDTO(toAccount.getId(), toAccount.getIban(), toAccount.getBalance());
+
+        return new TransactionDTO(transaction.getId(), transaction.getAmount(), fromAccountDTO, toAccountDTO);
+    }
+
+
 
 }
