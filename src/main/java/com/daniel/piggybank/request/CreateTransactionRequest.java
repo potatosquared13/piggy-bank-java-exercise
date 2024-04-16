@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 
-import static com.daniel.piggybank.types.IBAN.*;
+import static com.daniel.piggybank.types.IBAN.ibanFrom;
 
 public class CreateTransactionRequest {
     public final BigDecimal amount;

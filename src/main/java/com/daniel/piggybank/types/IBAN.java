@@ -7,7 +7,7 @@ import jakarta.persistence.Column;
 import java.util.Objects;
 
 public class IBAN {
-    private static final String IBAN_FORMAT = "^[A-Z0-9]{22,34}$"; // constant
+    private static final String IBAN_FORMAT = "^[A-Z0-9]{22,34}$";
 
     @Column(name = "iban")
     private final String value;
@@ -30,10 +30,10 @@ public class IBAN {
         return new IBAN(value);
     }
 
-    private static String validate(String iban){
-        if(iban == null) throw new IbanIsNullException("IBAN was null.");
+    private static String validate(String iban) {
+        if (iban == null) throw new IbanIsNullException("IBAN was null.");
 
-        if(!iban.matches(IBAN_FORMAT)) throw new InvalidFormatException("Wrong IBAN format.");
+        if (!iban.matches(IBAN_FORMAT)) throw new InvalidFormatException("Wrong IBAN format.");
 
         return iban;
     }

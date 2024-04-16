@@ -2,7 +2,12 @@ package com.daniel.piggybank.entity;
 
 import com.daniel.piggybank.exceptions.InsufficientBalanceException;
 import com.daniel.piggybank.types.IBAN;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -66,7 +71,7 @@ public class Account {
         final var newBalance = this.balance.subtract(amount);
         final var newBalanceIsLessThanZero = newBalance.compareTo(BigDecimal.ZERO) < 0;
         if(newBalanceIsLessThanZero) {
-            throw new InsufficientBalanceException();
+            throw new InsufficientBalanceException("Insufficient balance from source account.");
         }
 
         this.balance = newBalance;

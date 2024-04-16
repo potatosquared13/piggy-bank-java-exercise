@@ -5,7 +5,7 @@ import com.daniel.piggybank.types.IBAN;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public class AccountDTO { //Data Transfer Object
+public class AccountDTO {
     public final UUID id;
     public final String iban;
     public final BigDecimal balance;

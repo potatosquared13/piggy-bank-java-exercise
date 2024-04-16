@@ -1,8 +1,10 @@
 package com.daniel.piggybank.entity;
 
-import com.daniel.piggybank.service.AccountService;
-import com.daniel.piggybank.types.IBAN;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.math.BigDecimal;
 import java.util.Objects;
