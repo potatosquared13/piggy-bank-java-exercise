@@ -5,6 +5,7 @@ import com.daniel.piggybank.dto.TransactionDTO;
 import com.daniel.piggybank.entity.Transaction;
 import com.daniel.piggybank.request.CreateTransactionRequest;
 import com.daniel.piggybank.service.TransactionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/transactions")
+@Tag(name = "2. Transaction Operations", description = "Handle transactions between accounts")
 public class TransactionRestController {
 
     private final TransactionService transactionService;

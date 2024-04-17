@@ -4,6 +4,7 @@ import com.daniel.piggybank.dto.AccountDTO;
 import com.daniel.piggybank.exceptions.AccountIdNotFoundException;
 import com.daniel.piggybank.request.CreateAccountRequest;
 import com.daniel.piggybank.service.AccountService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/accounts")
+@Tag(name = "1. Account Operations", description = "Operations related to bank accounts")
 public class AccountRestController {
 
     private final AccountService accountService;

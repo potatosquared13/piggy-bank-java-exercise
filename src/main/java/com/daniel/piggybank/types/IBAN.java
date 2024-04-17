@@ -26,7 +26,7 @@ public class IBAN {
         return value;
     }
 
-    public static IBAN ibanFrom(String value) {
+    public static IBAN from(String value) {
         return new IBAN(value);
     }
 
