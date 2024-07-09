@@ -5,6 +5,7 @@ import com.daniel.piggybank.entity.Account;
 import com.daniel.piggybank.repository.AccountRepository;
 import com.daniel.piggybank.request.CreateAccountRequest;
 import com.daniel.piggybank.types.IBAN;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class AccountEndToEndTest {
         webTestClient = WebTestClient.bindToServer().baseUrl("http://localhost:" + port).build();
     }
 
+    @Transactional
     @Test
     void createsAnAccount() {
         final var request = new CreateAccountRequest(IBAN.from("DE371643746183472637423"), ZERO);
@@ -46,7 +48,7 @@ public class AccountEndToEndTest {
                     assertNotNull(account);
                     final var persistedAccount = accountRepository.getReferenceById(account.id);
                     assertEquals(request.iban, persistedAccount.getIban());
-                    assertEquals(request.balance, persistedAccount.getBalance());
+                    assertEquals(0, request.balance.compareTo(persistedAccount.getBalance()));
                 });
     }
 }

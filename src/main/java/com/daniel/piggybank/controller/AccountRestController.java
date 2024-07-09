@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.SimpleTimeZone;
 import java.util.UUID;
 
 @RestController
@@ -44,7 +45,6 @@ public class AccountRestController {
         final var account = accountService.getbyId(accountId);
         System.out.println(account);
         if(account == null) {
-            System.out.println("TEST");
             throw new AccountIdNotFoundException(("Account with ID " + accountId + " not found."));
         }
         return new AccountDTO(account.getId(), account.getIban(), account.getBalance());
@@ -63,4 +63,11 @@ public class AccountRestController {
         System.out.println("AccountIdNotFoundException handled: " + e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+
+    @ExceptionHandler(AccountIdNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleAccountIdDuplicateException(AccountIdNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
 }
